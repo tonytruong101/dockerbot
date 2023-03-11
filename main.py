@@ -5,7 +5,8 @@ import sys
 knowledge_base = {
     "python": ["FROM python:3.9", "RUN pip install -r requirements.txt"],
     "nodejs": ["RUN npm install"],
-    "java": ["FROM openjdk:11", "COPY target/*.jar /app.jar"]
+    "java": ["FROM openjdk:11", "COPY target/*.jar /app.jar"],
+    "ruby": ["FROM ruby"]
 }
 
 # Define a chatbot interface to prompt the user for input
@@ -26,7 +27,7 @@ def generate_dockerfile(language, version, packageManager, os, dependencies, por
     if os == "alpine":
         image_tag = f"FROM {language}:{version}-{os}"
     else:
-        image_tag = f"FROM {language}"
+        image_tag = f"FROM {language}:{version}"
     base_commands[0] = f"## Creating Base Image\n{image_tag}\n"
 
     install_commands = []
@@ -47,7 +48,7 @@ def generate_dockerfile(language, version, packageManager, os, dependencies, por
             app_commands.append(f"\nEXPOSE {port}")
 
     all_commands += app_commands
-    
+
     return "\n".join(all_commands)
 
 # Write the Dockerfile to a file
