@@ -44,6 +44,7 @@ def main_menu():
               print(f"Your Dockerfile has been saved to {filename}.\n")
               response = input("Do you want to create another Dockerfile? (y/n): ")
         elif choice == "2":
+            print(ascii_art)
             print("Thank you for using Dockerbot. Goodbye!")
             sys.exit()  # Exit the entire program
         else:
