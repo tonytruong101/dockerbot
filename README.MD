@@ -29,6 +29,32 @@ Please select an option:
 
 ```
 
+## Adding To The Bot Knowledge base
+
+```
+ ____   ___   ____ _  _______ ____  ____   ___ _____ 
+|  _ \ / _ \ / ___| |/ / ____|  _ \| __ ) / _ \_   _|
+| | | | | | | |   | ' /|  _| | |_) |  _ \| | | || |  
+| |_| | |_| | |___| . \| |___|  _ <| |_) | |_| || |  
+|____/ \___/ \____|_|\_\_____|_| \_\____/ \___/ |_|  
+                                                     
+
+What programming language or framework do you want to use? (python, nodejs, java): my-newest-image
+Sorry, {language} is not supported. Would you like to add it to our knowledge base? (y/n): y
+Enter the image name: my-newest-image
+Enter the image tag(lts or a specific version): lts
+my-newest-image image added to the knowledge base with image name my-newest-image
+
+```
+
+Which creates a new entry in your `docker_images.py` file
+
+```
+  
+  "my-newest-image": ['FROM my-newest-image:lts'],
+
+```
+
 ## Generate App Dependencies Manually or Automatically
 
 ```
