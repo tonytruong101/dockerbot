@@ -3,7 +3,7 @@ from generate_docker_compose import generate_docker_compose
 import random
 import sys
 import pyfiglet
-
+import json
 
 # Set the text to be displayed
 text = "DOCKERBOT"
@@ -17,7 +17,20 @@ def prompt_user():
     version = input("What version to do you want to pull from Dockerhub? (lts, or specific docker tag): ")
     packageManager = input("What package manager do you want to install application dependencies with? (npm, yarn, pip): ")
     os = input("What operating system do you want to base your image on? (alpine, ubuntu): ")
-    dependencies = input("What packages or dependencies do you need? (comma-separated list): ")
+    dependencies_choice = input("Do you want to input dependencies manually or read from a file such as package.json? (m/f): ")
+    dependencies = []
+    if dependencies_choice.lower() == "m":
+        dependencies = input("What packages or dependencies do you need? (comma-separated list): ")
+    elif dependencies_choice.lower() == "f":
+        filename = input("Enter the name of the file containing dependencies (e.g. package.json): ")
+        with open(filename, "r") as f:
+            dependencies_data = json.load(f)
+        if "dependencies" in dependencies_data:
+            dependencies = ",".join(dependencies_data["dependencies"])
+        else:
+            print(f"No dependencies found for {language}. Please provide the dependencies manually.")
+            dependencies = input("What packages or dependencies do you need? (comma-separated list): ")
+
     ports = input("What ports do you need exposed to run this application? (comma-separated list): ")
 
     return language, version, packageManager, os, dependencies, ports
@@ -74,10 +87,16 @@ def generate_dockerfile(language, version, packageManager, os, dependencies, por
     install_commands = []
     if dependencies:
         dependencies = dependencies.split(",")
-        for dep in dependencies:
-            install_commands.append(f"RUN apt-get install -y {dep}")
-        install_commands.append("\n## Installing App Dependancies")
-        install_commands.append(f"\nRUN {packageManager} install")
+        if packageManager == "npm":
+            for dep in dependencies:
+                install_commands.append(f"RUN npm install {dep}")
+        elif packageManager == "yarn":
+            for dep in dependencies:
+                install_commands.append(f"RUN yarn add {dep}")
+        elif packageManager == "bundler":
+            for dep in dependencies:
+                install_commands.append(f"RUN gem bundle add {dep}")
+        # Add other package manager options here...
     all_commands = base_commands + install_commands
 
     app_commands = []
