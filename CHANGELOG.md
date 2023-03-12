@@ -1,4 +1,12 @@
-2023-03-11
+## 2023-03-12
+- d18cc8f add: feature to add new docker images to the knowledge (tonytruong101)
+- 873f29c reworked dependencies logic to run COPY commands add basic error validation for user inputs (tonytruong101)
+## 2023-03-11
+- f0fc451 update readme (tonytruong101)
+- bd84eb3 add: feature to parse application package files instead of manaully adding them (tonytruong101)
+- d51ead8 update readme (tonytruong101)
+- 538a774 add: main menu option to build docker-compose from dockerfile (tonytruong101)
+- 9600fb9 changelog (tonytruong101)
 - 7c99126 add: changelog and generator script for changelog (tonytruong101)
 - 10a46a8 add ascii art for better visual clarification between prompt changes (tonytruong101)
 - 7992d47 update ascii art on exit (tonytruong101)
