@@ -1,6 +1,8 @@
 ## DockerBot
 
-A project created to learn Python Programming. A functional Docker bot that will generate Dockerfiles for most basic web applications. This may grow to become bigger overtime as I find more time to invest into the project.
+# Why?
+
+Bootstrapping my Python programming learning with creating a functional bot that will become a test playground for many features. 
 
 ## Quick-Start
 
@@ -26,7 +28,7 @@ Please select an option:
 
 ```
 
-## Generating a Dockerfile Example with NodeJs Using Dockerbot
+## Generating an LTS Dockerfile Example with NodeJs Using Dockerbot
 
 ```
 Welcome to Dockerbot! Let's create a Dockerfile.
@@ -73,3 +75,33 @@ Goodbye!
 
 ```
 
+## Generating a Specific Dockerfile Example Version Image with Ruby using Dockerbot
+
+```
+What programming language or framework do you want to use? (python, nodejs, java): ruby
+What version to do you want to pull from Dockerhub? (lts, or specific docker tag): 2.7.3
+What package manager do you want to install application dependencies with? (npm, yarn, pip): bundle
+What operating system do you want to base your image on? (alpine, ubuntu): alpine
+What packages or dependencies do you need? (comma-separated list): shared-mime-info
+What ports do you need exposed to run this application? (comma-separated list): 3000
+Here's your Dockerfile:
+## Creating Base Image
+FROM ruby:2.7.3-alpine
+
+RUN apt-get install -y shared-mime-info
+
+## Installing App Dependancies
+
+RUN bundle install
+
+## Adding App Files
+
+COPY . /app
+
+EXPOSE 3000
+
+Enter a filename to save the Dockerfile: Dockerfile
+
+Your Dockerfile has been saved to Dockerfile.
+
+```
