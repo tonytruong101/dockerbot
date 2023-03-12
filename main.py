@@ -2,11 +2,33 @@ import random
 import sys
 
 # Define a knowledge base of Dockerfile commands based on user inputs
+
 knowledge_base = {
-    "python": ["FROM python:3.9", "RUN pip install -r requirements.txt"],
-    "nodejs": ["RUN npm install"],
-    "java": ["FROM openjdk:11", "COPY target/*.jar /app.jar"],
-    "ruby": ["FROM ruby"]
+    "python":                ["FROM python:3.9", "RUN pip install -r requirements.txt"],
+    "node":                  ["FROM node:latest", "RUN npm install"],
+    "mysql":                 ["FROM mysql:latest", "ENV MYSQL_ROOT_PASSWORD=password", "COPY init.sql /docker-entrypoint-initdb.d/"],
+    "postgres":              ["FROM postgres:latest", "ENV POSTGRES_PASSWORD=password", "COPY init.sql /docker-entrypoint-initdb.d/"],
+    "mongo":                 ["FROM mongo:latest", "COPY init.js /docker-entrypoint-initdb.d/", "CMD mongod --bind_ip_all"],
+    "redis":                 ["FROM redis:latest"],
+    "nginx":                 ["FROM nginx:latest", "COPY nginx.conf /etc/nginx/nginx.conf"],
+    "php":                   ["FROM php:latest", "COPY index.php /var/www/html/"],
+    "alpine":                ["FROM alpine:latest"],
+    "golang":                ["FROM golang:latest", "COPY main.go .", "RUN go build -o main"],
+    "microsoft/dotnet":      ["FROM mcr.microsoft.com/dotnet/sdk:latest", "COPY . /app", "WORKDIR /app", "RUN dotnet restore", "RUN dotnet build"],
+    "centos":                ["FROM centos:latest"],
+    "debian":                ["FROM debian:latest"],
+    "amazonlinux":           ["FROM amazonlinux:latest"],
+    "ubuntu":                ["FROM ubuntu:latest"],
+    "httpd":                 ["FROM httpd:latest", "COPY index.html /usr/local/apache2/htdocs/"],
+    "grafana/grafana":       ["FROM grafana/grafana:latest"],
+    "jenkins":               ["FROM jenkins/jenkins:latest"],
+    "bitnami/kafka":         ["FROM bitnami/kafka:latest"],
+    "prom/prometheus":       ["FROM prom/prometheus:latest"],
+    "alpine/git":            ["FROM alpine/git:latest"],
+    "elastic/elasticsearch": ["FROM docker.elastic.co/elasticsearch/elasticsearch:latest"],
+    "amazon/dynamodb-local": ["FROM amazon/dynamodb-local:latest"],
+    "consul":                ["FROM consul:latest"],
+    "ruby":                  [{"FROM ruby"}]
 }
 
 # Define a chatbot interface to prompt the user for input
