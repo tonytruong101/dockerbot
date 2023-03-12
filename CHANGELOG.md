@@ -1,6 +1,11 @@
 ## 2023-03-12
+- 683cf8b fixed generate_dockerfile function (tonytruong101)
+- bd1f68c updated readme (tonytruong101)
+- efddf0b update readme (tonytruong101)
+- fe331d6 update changelog (tonytruong101)
 - d18cc8f add: feature to add new docker images to the knowledge (tonytruong101)
 - 873f29c reworked dependencies logic to run COPY commands add basic error validation for user inputs (tonytruong101)
+
 ## 2023-03-11
 - f0fc451 update readme (tonytruong101)
 - bd84eb3 add: feature to parse application package files instead of manaully adding them (tonytruong101)
