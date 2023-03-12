@@ -1,4 +1,5 @@
 from docker_images import knowledge_base
+from generate_docker_compose import generate_docker_compose
 import random
 import sys
 import pyfiglet
@@ -29,7 +30,8 @@ def main_menu():
     while True:
         print("\nPlease select an option:")
         print("1. Build Dockerfile")
-        print("2. Exit Dockerbot")
+        print("2. Generate Docker Compose")
+        print("3. Exit Dockerbot")
 
         choice = input("> ")
 
@@ -45,6 +47,13 @@ def main_menu():
               print(f"\nYour Dockerfile has been saved to {filename}.\n")
               response = input("Do you want to create another Dockerfile? (y/n): ")
         elif choice == "2":
+            dockerfile_path = input("Enter the path to the Dockerfile: ")
+            composefile = generate_docker_compose(dockerfile_path)
+            print(f"Here's your docker-compose.yaml:\n{composefile}\n")
+            filename = input("Enter a filename to save the docker-compose.yaml: ")
+            write_dockerfile(filename, composefile)
+            print(f"\nYour docker-compose.yaml has been saved to {filename}.\n")
+        elif choice == "3":
             print(ascii_art)
             print("Thank you for using Dockerbot. Goodbye!")
             sys.exit()  # Exit the entire program
