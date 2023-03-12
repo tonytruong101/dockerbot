@@ -1,5 +1,6 @@
 from docker_images import knowledge_base
 from generate_docker_compose import generate_docker_compose
+from dockerfile_analysis import analyze_dockerfile
 import random
 import sys
 import pyfiglet
@@ -86,8 +87,8 @@ def main_menu():
         print("\nPlease select an option:")
         print("1. Build Dockerfile")
         print("2. Generate Docker Compose")
-        print("3. Exit Dockerbot")
-
+        print("3. Inspect Dockerfile")
+        print("4. Exit Dockerbot")
         choice = input("> ")
 
         if choice == "1":
@@ -101,6 +102,7 @@ def main_menu():
               write_dockerfile(filename, dockerfile)
               print(f"\nYour Dockerfile has been saved to {filename}.\n")
               response = input("Do you want to create another Dockerfile? (y/n): ")
+
         elif choice == "2":
             print(ascii_art)
             dockerfile_path = input("Enter the path to the Dockerfile: ")
@@ -109,7 +111,15 @@ def main_menu():
             filename = input("Enter a filename to save the docker-compose.yaml: ")
             write_dockerfile(filename, composefile)
             print(f"\nYour docker-compose.yaml has been saved to {filename}.\n")
+
         elif choice == "3":
+            file_path = input("Enter the path to the Dockerfile: ")
+            with open(file_path, 'r') as f:
+                dockerfile = f.read()
+            results = analyze_dockerfile(dockerfile)
+            print(f"\nHere's the description of your Dockerfile:\n{results}\n")
+
+        elif choice == "4":
             print(ascii_art)
             print("Thank you for using Dockerbot. Goodbye!")
             sys.exit()  # Exit the entire program
@@ -159,8 +169,8 @@ def generate_dockerfile(language, version, packageManager, os, dependencies, por
 
     if ports:
         port_list = ports.split(",")
-        port_str = " ".join(port_list)
-        all_commands.append("EXPOSE {}".format(port_str))
+        for port in port_list:
+            all_commands.append("EXPOSE {}".format(port))
 
     dockerfile = "\n".join(all_commands)
     return dockerfile
