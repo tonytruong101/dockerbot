@@ -1,4 +1,6 @@
 ## 2023-03-12
+- 0db7883 fixed option 3, adding regenerate prompt responses from davinci (tonytruong101)
+- ad92e32 update changelog (tonytruong101)
 - f488239 add: feature to chat with dockerbot utilizing da-vinci-003 chatgpt prompt (tonytruong101)
 - 3d35da3 update readme and changelog (tonytruong101)
 - e9b9947 fixed port function, add new feature Dockerfile Analysis (tonytruong101)
@@ -9,7 +11,6 @@
 - fe331d6 update changelog (tonytruong101)
 - d18cc8f add: feature to add new docker images to the knowledge (tonytruong101)
 - 873f29c reworked dependencies logic to run COPY commands add basic error validation for user inputs (tonytruong101)
-
 ## 2023-03-11
 - f0fc451 update readme (tonytruong101)
 - bd84eb3 add: feature to parse application package files instead of manaully adding them (tonytruong101)
