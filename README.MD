@@ -11,6 +11,18 @@ python main.py
 ## Main Menu
 
 ```
+ ____   ___   ____ _  _______ ____  ____   ___ _____ 
+|  _ \ / _ \ / ___| |/ / ____|  _ \| __ ) / _ \_   _|
+| | | | | | | |   | ' /|  _| | |_) |  _ \| | | || |  
+| |_| | |_| | |___| . \| |___|  _ <| |_) | |_| || |  
+|____/ \___/ \____|_|\_\_____|_| \_\____/ \___/ |_|  
+                                                     
+
+Welcome to Dockerbot! A bot created in Python3 to help you automate some of those boring tasks
+
+Please select an option:
+1. Build Dockerfile
+2. Exit Dockerbot
 
 ```
 
