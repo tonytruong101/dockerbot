@@ -11,18 +11,53 @@ text = "DOCKERBOT"
 # Use the Pyfiglet library to generate ASCII art
 ascii_art = pyfiglet.figlet_format(text)
 
+knowledge_base_file = "docker_images.py"
+
+def file_exists(filename):
+    try:
+        with open(filename) as f:
+            return True
+    except FileNotFoundError:
+        return False
+
+def write_to_file(knowledge_base):
+    with open(knowledge_base_file, "w") as f:
+        f.write("knowledge_base = {\n")
+        for k, v in knowledge_base.items():
+            f.write(f'    "{k}": {v},\n')
+        f.write("}\n")
+
 def prompt_user():
     print(ascii_art)
+
+    global knowledge_base
+
+    if file_exists(knowledge_base_file):
+        # if knowledge base file exists, import its contents
+        from docker_images import knowledge_base
+    else:
+        # otherwise, initialize an empty knowledge base
+        knowledge_base = {}
 
     knowledge_base_list = list(knowledge_base.keys())
 
     language = ""    
-    while language not in knowledge_base:
+    while True:
         language = input("What programming language or framework do you want to use? (python, nodejs, java): ")
         if language not in knowledge_base:
-            print(f"Sorry, {language} is not supported. Please choose from:")
-            for lang in knowledge_base.keys():
-                print(lang)
+            add_custom = input("Sorry, {language} is not supported. Would you like to add it to our knowledge base? (y/n): ")
+            if add_custom.lower() == "y":
+                custom_image = input("Enter the image name: ")
+                custom_image_tag = input("Enter the image tag(lts or a specific version): ")
+                knowledge_base[language] = ['FROM {}:{}'.format(custom_image, custom_image_tag)]
+                print(f"{language} image added to the knowledge base with image name {custom_image}")
+                write_to_file(knowledge_base)  # write the updated knowledge base to file
+            else:
+                print(f"Please choose from: {knowledge_base_list}")
+        else:
+            print(f"{language} image: {knowledge_base[language]}")
+            break
+
     version = input("What version to do you want to pull from Dockerhub? (lts, or specific docker tag): ")
 
     packageManager = input("What package manager do you want to install application dependencies with? (npm, yarn, pip): ")
@@ -84,46 +119,51 @@ def main_menu():
 # Generate the Dockerfile based on user inputs
 
 def generate_dockerfile(language, version, packageManager, os, dependencies, ports):
-    base_commands = knowledge_base.get(language, [])
-    if os == "alpine":
-        image_tag = f"FROM {language}:{version}-{os}"
+    base_commands = {
+        "alpine": ["FROM", "{}:{}".format(language, version)],
+        "ubuntu": ["FROM", "{}:{}".format(language, version)]
+    }
+
+    if packageManager == "npm":
+        install_commands = [
+            "RUN npm install -g npm",
+            "COPY package*.json ./",
+            "RUN npm install",
+        ]
+    elif packageManager == "yarn":
+        install_commands = [
+            "RUN npm install -g yarn",
+            "COPY package*.json ./",
+            "RUN yarn install",
+        ]
+    elif packageManager == "pip":
+        install_commands = [
+            "COPY requirements.txt /",
+            "RUN pip install -r /requirements.txt",
+        ]
     else:
-        image_tag = f"FROM {language}:{version}"
-    base_commands[0] = f"## Creating Base Image\n{image_tag}\n"
+        install_commands = []
 
-    install_commands = []
-    if packageManager:
-        if packageManager == "npm":
-            install_commands.append("COPY package.json /app/package.json")
-            install_commands.append("RUN npm install")
-            install_commands.append("COPY . /app")
-        elif packageManager == "yarn":
-            install_commands.append("COPY package.json /app/")
-            install_commands.append("RUN yarn install")
-            install_commands.append("COPY . /app")
+    all_commands = []
+    all_commands.extend(base_commands[os])
+    all_commands.extend(install_commands)
+
+    if dependencies:
+        if packageManager in ["npm", "yarn"]:
+            all_commands.append("COPY . .")
+            all_commands.append("RUN {} install".format(packageManager))
         elif packageManager == "pip":
-            install_commands.append("COPY requirements.txt /app/requirements.txt")
-            install_commands.append("RUN pip install -r requirements.txt")
-            install_commands.append("COPY . /app")
-        elif packageManager == "bundler":
-            install_commands.append("COPY Gemfile /app/Gemfile")
-            install_commands.append("RUN gem bundlle install --path=vendor/bundle")
-            install_commands.append("COPY . /app")
+            all_commands.append("COPY . /app")
+        else:
+            pass
 
-        # Add other package manager options here...
-    all_commands = base_commands + install_commands
-
-    app_commands = []
-    app_commands.append("\n## Adding App Files")
-    app_commands.append("\nCOPY . /app")     
     if ports:
-        ports = ports.split(",")
-        for port in ports:
-            app_commands.append(f"\nEXPOSE {port}")
+        port_list = ports.split(",")
+        port_str = " ".join(port_list)
+        all_commands.append("EXPOSE {}".format(port_str))
 
-    all_commands += app_commands
-
-    return "\n".join(all_commands)
+    dockerfile = "\n".join(all_commands)
+    return dockerfile
 
 # Write the Dockerfile to a file
 def write_dockerfile(filename, dockerfile):
