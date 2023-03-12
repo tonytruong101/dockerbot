@@ -25,8 +25,8 @@ Welcome to Dockerbot! A bot created in Python3 to help you automate some of thos
 Please select an option:
 1. Build Dockerfile
 2. Generate Docker Compose
-3. Exit Dockerbot
-
+3. Inspect Dockerfile
+4. Exit Dockerbot
 ```
 
 ## Adding To The Bot Knowledge base
@@ -185,4 +185,35 @@ Enter a filename to save the docker-compose.yaml: docker-compose.yaml
 
 Your docker-compose.yaml has been saved to docker-compose.yaml.
 
+```
+
+## Inspecting A Dockerfile
+
+```
+ ____   ___   ____ _  _______ ____  ____   ___ _____ 
+|  _ \ / _ \ / ___| |/ / ____|  _ \| __ ) / _ \_   _|
+| | | | | | | |   | ' /|  _| | |_) |  _ \| | | || |  
+| |_| | |_| | |___| . \| |___|  _ <| |_) | |_| || |  
+|____/ \___/ \____|_|\_\_____|_| \_\____/ \___/ |_|  
+                                                     
+
+Welcome to Dockerbot! A bot created in Python3 to help you automate some of those boring tasks
+
+Please select an option:
+1. Build Dockerfile
+2. Generate Docker Compose
+3. Inspect Dockerfile
+4. Exit Dockerbot
+> 3
+Enter the path to the Dockerfile: Dockerfile
+
+Here's the description of your Dockerfile:
+This Dockerfile uses nodejs:lts-alpine as the base image and installs the following packages: . It also exposes the following ports: 8080, 5000.
+
+
+Please select an option:
+1. Build Dockerfile
+2. Generate Docker Compose
+3. Inspect Dockerfile
+4. Exit Dockerbot
 ```

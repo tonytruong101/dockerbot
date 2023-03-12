@@ -1,4 +1,6 @@
 ## 2023-03-12
+- e9b9947 fixed port function, add new feature Dockerfile Analysis (tonytruong101)
+- f063626 updated changelog.sh to overwrite file instead of appending and updated CHANGELOG.MD (tonytruong101)
 - 683cf8b fixed generate_dockerfile function (tonytruong101)
 - bd1f68c updated readme (tonytruong101)
 - efddf0b update readme (tonytruong101)
