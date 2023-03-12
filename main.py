@@ -7,7 +7,7 @@ import pyfiglet
 import json
 import openai
 
-openai.api_key = ''
+openai.api_key = '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'
 
 # Set the text to be displayed
 text = "DOCKERBOT"
@@ -32,18 +32,26 @@ def write_to_file(knowledge_base):
         f.write("}\n")
 
 def generate_dockerfile_from_prompt(prompt):
-    model_engine = "text-davinci-002"
-    completions = openai.Completion.create(
-        engine=model_engine,
-        prompt=prompt,
-        max_tokens=1024,
-        n=1,
-        stop=None,
-        temperature=0.5,
-    )
+    while True:
+        model_engine = "text-davinci-002"
+        completions = openai.Completion.create(
+            engine=model_engine,
+            prompt=prompt,
+            max_tokens=1024,
+            n=1,
+            stop=None,
+            temperature=0.5,
+        )
 
-    message = completions.choices[0].text
-    return message
+        message = completions.choices[0].text
+        print(f"Here's your file:\n{message}\n")
+        response = input("Do you accept this response? (y/n): ")
+        if response.lower() == "y":
+            return message
+        elif response.lower() != "n":
+            print("Invalid input. Please enter 'y' to accept or 'n' to regenerate.")
+        else:
+            print("Generating a new file...")
 
 
 def prompt_user():
@@ -131,6 +139,14 @@ def main_menu():
             filename = input("Enter a filename to save the docker-compose.yaml: ")
             write_dockerfile(filename, composefile)
             print(f"\nYour docker-compose.yaml has been saved to {filename}.\n")
+
+        elif choice == "3":
+            file_path = input("Enter the path to the Dockerfile: ")
+            with open(file_path, 'r') as f:
+                dockerfile = f.read()
+            results = analyze_dockerfile(dockerfile)
+            print(f"\nHere's the description of your Dockerfile:\n{results}\n")
+
         elif choice == "4":
             print(ascii_art)
             prompt = input("Enter a prompt to generate a Dockerfile: ")
@@ -139,6 +155,7 @@ def main_menu():
             filename = input("Enter a filename to save the Dockerfile: ")
             write_dockerfile(filename, dockerfile)
             print(f"\nYour Dockerfile has been saved to {filename}.\n")
+
         elif choice == "5":
             print(ascii_art)
             print("Thank you for using Dockerbot. Goodbye!")
