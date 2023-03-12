@@ -1,46 +1,14 @@
+from docker_images import knowledge_base
 import random
 import sys
 import pyfiglet
 
-
-#
-import pyfiglet
 
 # Set the text to be displayed
 text = "DOCKERBOT"
 
 # Use the Pyfiglet library to generate ASCII art
 ascii_art = pyfiglet.figlet_format(text)
-
-# Define a knowledge base of Dockerfile commands based on user inputs
-
-knowledge_base = {
-    "python":                ["FROM python:3.9", "RUN pip install -r requirements.txt"],
-    "nodejs":                  ["FROM node:latest", "RUN npm install"],
-    "mysql":                 ["FROM mysql:latest", "ENV MYSQL_ROOT_PASSWORD=password", "COPY init.sql /docker-entrypoint-initdb.d/"],
-    "postgres":              ["FROM postgres:latest", "ENV POSTGRES_PASSWORD=password", "COPY init.sql /docker-entrypoint-initdb.d/"],
-    "mongo":                 ["FROM mongo:latest", "COPY init.js /docker-entrypoint-initdb.d/", "CMD mongod --bind_ip_all"],
-    "redis":                 ["FROM redis:latest"],
-    "nginx":                 ["FROM nginx:latest", "COPY nginx.conf /etc/nginx/nginx.conf"],
-    "php":                   ["FROM php:latest", "COPY index.php /var/www/html/"],
-    "alpine":                ["FROM alpine:latest"],
-    "golang":                ["FROM golang:latest", "COPY main.go .", "RUN go build -o main"],
-    "microsoft/dotnet":      ["FROM mcr.microsoft.com/dotnet/sdk:latest", "COPY . /app", "WORKDIR /app", "RUN dotnet restore", "RUN dotnet build"],
-    "centos":                ["FROM centos:latest"],
-    "debian":                ["FROM debian:latest"],
-    "amazonlinux":           ["FROM amazonlinux:latest"],
-    "ubuntu":                ["FROM ubuntu:latest"],
-    "httpd":                 ["FROM httpd:latest", "COPY index.html /usr/local/apache2/htdocs/"],
-    "grafana/grafana":       ["FROM grafana/grafana:latest"],
-    "jenkins":               ["FROM jenkins/jenkins:latest"],
-    "bitnami/kafka":         ["FROM bitnami/kafka:latest"],
-    "prom/prometheus":       ["FROM prom/prometheus:latest"],
-    "alpine/git":            ["FROM alpine/git:latest"],
-    "elastic/elasticsearch": ["FROM docker.elastic.co/elasticsearch/elasticsearch:latest"],
-    "amazon/dynamodb-local": ["FROM amazon/dynamodb-local:latest"],
-    "consul":                ["FROM consul:latest"],
-    "ruby":                  [{"FROM ruby"}]
-}
 
 def prompt_user():
     language = input("What programming language or framework do you want to use? (python, nodejs, java): ")
@@ -80,16 +48,6 @@ def main_menu():
             sys.exit()  # Exit the entire program
         else:
             print("Invalid choice. Please try again.")
-
-#def prompt_user():
-#    language       = input("What programming language or framework do you want to use? (python, nodejs, java): ")
-#    version        = input("What version to do you want to pull from Dockerhub? (lts, or specific docker tag ")
-#    packageManager = input("What package manager do you wan to install application dependancies with? (npm, yarn, pip):")
-#    os             = input("What operating system do you want to base your image on? (alpine, ubuntu): ")
-#    dependencies   = input("What packages or dependencies do you need? (comma-separated list): ")
-#    ports          = input("What ports do you need exposed to run this application? (comma-seperated lst):")
-    
-#    return language, version, packageManager, os, dependencies, ports
 
 # Generate the Dockerfile based on user inputs
 
