@@ -29,6 +29,36 @@ Please select an option:
 
 ```
 
+## Generate App Dependencies Manually or Automatically
+
+```
+Do you want to input dependencies manually or read from a file such as package.json? (m/f): f
+Enter the name of the file containing dependencies (e.g. package.json): package.json
+What ports do you need exposed to run this application? (comma-separated list): 5000
+
+Here's your Dockerfile:
+
+## Creating Base Image
+
+FROM nodejs:lts-alpine
+
+RUN npm install
+
+## Generated based on package.json
+RUN npm install express
+RUN npm install lodash
+RUN npm install mysql
+
+## Adding App Files
+
+COPY . /app
+
+EXPOSE 5000
+
+Enter a filename to save the Dockerfile: Dockerfile
+
+```
+
 ## Generating an LTS Dockerfile Example with NodeJs Using Dockerbot
 
 ```
