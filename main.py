@@ -5,6 +5,9 @@ import random
 import sys
 import pyfiglet
 import json
+import openai
+
+openai.api_key = ''
 
 # Set the text to be displayed
 text = "DOCKERBOT"
@@ -27,6 +30,21 @@ def write_to_file(knowledge_base):
         for k, v in knowledge_base.items():
             f.write(f'    "{k}": {v},\n')
         f.write("}\n")
+
+def generate_dockerfile_from_prompt(prompt):
+    model_engine = "text-davinci-002"
+    completions = openai.Completion.create(
+        engine=model_engine,
+        prompt=prompt,
+        max_tokens=1024,
+        n=1,
+        stop=None,
+        temperature=0.5,
+    )
+
+    message = completions.choices[0].text
+    return message
+
 
 def prompt_user():
     print(ascii_art)
@@ -88,7 +106,9 @@ def main_menu():
         print("1. Build Dockerfile")
         print("2. Generate Docker Compose")
         print("3. Inspect Dockerfile")
-        print("4. Exit Dockerbot")
+        print("4. Chat with Dockerbot")
+        print("5. Exit Dockerbot")
+
         choice = input("> ")
 
         if choice == "1":
@@ -111,18 +131,19 @@ def main_menu():
             filename = input("Enter a filename to save the docker-compose.yaml: ")
             write_dockerfile(filename, composefile)
             print(f"\nYour docker-compose.yaml has been saved to {filename}.\n")
-
-        elif choice == "3":
-            file_path = input("Enter the path to the Dockerfile: ")
-            with open(file_path, 'r') as f:
-                dockerfile = f.read()
-            results = analyze_dockerfile(dockerfile)
-            print(f"\nHere's the description of your Dockerfile:\n{results}\n")
-
         elif choice == "4":
+            print(ascii_art)
+            prompt = input("Enter a prompt to generate a Dockerfile: ")
+            dockerfile = generate_dockerfile_from_prompt(prompt)
+            print(f"Here's your Dockerfile:\n{dockerfile}\n")
+            filename = input("Enter a filename to save the Dockerfile: ")
+            write_dockerfile(filename, dockerfile)
+            print(f"\nYour Dockerfile has been saved to {filename}.\n")
+        elif choice == "5":
             print(ascii_art)
             print("Thank you for using Dockerbot. Goodbye!")
             sys.exit()  # Exit the entire program
+
         else:
             print("Invalid choice. Please try again.")
 

@@ -2,7 +2,8 @@
 
 # Why?
 
-Bootstrapping my Python programming learning with creating a functional bot that will become a test playground for many features. 
+Bootstrapping my Python programming learning with creating a functional bot that will become a test playground for many features.
+
 
 ## Quick-Start
 
@@ -26,7 +27,55 @@ Please select an option:
 1. Build Dockerfile
 2. Generate Docker Compose
 3. Inspect Dockerfile
-4. Exit Dockerbot
+4. Chat with Dockerbot
+5. Exit Dockerbot
+```
+
+
+## Using Dockerbot like ChatGPT
+
+If you don't want to be walked through a Dockerfile install, you can select option 4 to be able to pass a prompt into Dockerbot like ChatGPT.
+
+Requirements: 
+
+You will need to add in your `openai api key` in `main.py` order for this to work.
+```
+ ____   ___   ____ _  _______ ____  ____   ___ _____ 
+|  _ \ / _ \ / ___| |/ / ____|  _ \| __ ) / _ \_   _|
+| | | | | | | |   | ' /|  _| | |_) |  _ \| | | || |  
+| |_| | |_| | |___| . \| |___|  _ <| |_) | |_| || |  
+|____/ \___/ \____|_|\_\_____|_| \_\____/ \___/ |_|  
+                                                     
+
+Enter a prompt to generate a Dockerfile: Generate me a Nodejs latest dockerfile
+Here's your Dockerfile:
+
+
+FROM node:latest
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 8080
+
+CMD [ "node", "index.js" ]
+
+Enter a filename to save the Dockerfile: Dockerfile
+
+Your Dockerfile has been saved to Dockerfile.
+
+
+Please select an option:
+1. Build Dockerfile
+2. Generate Docker Compose
+3. Inspect Dockerfile
+4. Chat with Dockerbot
+5. Exit Dockerbot
 ```
 
 ## Adding To The Bot Knowledge base
