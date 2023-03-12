@@ -11,6 +11,7 @@ text = "DOCKERBOT"
 ascii_art = pyfiglet.figlet_format(text)
 
 def prompt_user():
+    print(ascii_art)
     language = input("What programming language or framework do you want to use? (python, nodejs, java): ")
     version = input("What version to do you want to pull from Dockerhub? (lts, or specific docker tag): ")
     packageManager = input("What package manager do you want to install application dependencies with? (npm, yarn, pip): ")
@@ -41,7 +42,7 @@ def main_menu():
               print(f"Here's your Dockerfile:\n{dockerfile}\n")
               filename = input("Enter a filename to save the Dockerfile: ")
               write_dockerfile(filename, dockerfile)
-              print(f"Your Dockerfile has been saved to {filename}.\n")
+              print(f"\nYour Dockerfile has been saved to {filename}.\n")
               response = input("Do you want to create another Dockerfile? (y/n): ")
         elif choice == "2":
             print(ascii_art)
