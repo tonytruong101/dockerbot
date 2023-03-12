@@ -44,10 +44,7 @@ FROM nodejs:lts-alpine
 
 RUN npm install
 
-## Generated based on package.json
-RUN npm install express
-RUN npm install lodash
-RUN npm install mysql
+COPY package.json /app/package.json
 
 ## Adding App Files
 
