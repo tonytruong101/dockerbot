@@ -5,7 +5,7 @@ import sys
 
 knowledge_base = {
     "python":                ["FROM python:3.9", "RUN pip install -r requirements.txt"],
-    "node":                  ["FROM node:latest", "RUN npm install"],
+    "nodejs":                  ["FROM node:latest", "RUN npm install"],
     "mysql":                 ["FROM mysql:latest", "ENV MYSQL_ROOT_PASSWORD=password", "COPY init.sql /docker-entrypoint-initdb.d/"],
     "postgres":              ["FROM postgres:latest", "ENV POSTGRES_PASSWORD=password", "COPY init.sql /docker-entrypoint-initdb.d/"],
     "mongo":                 ["FROM mongo:latest", "COPY init.js /docker-entrypoint-initdb.d/", "CMD mongod --bind_ip_all"],
@@ -31,7 +31,32 @@ knowledge_base = {
     "ruby":                  [{"FROM ruby"}]
 }
 
-# Define a chatbot interface to prompt the user for input
+
+def main_menu():
+    print("Welcome to Dockerbot! A bot created in Python3 to help you automate some of those boring tasks")
+    
+    while True:
+        print("\nPlease select an option:")
+        print("1. Build Dockerfile")
+        print("2. Start a new Docker container")
+        print("3. Stop a running Docker container")
+        print("4. Exit Dockerbot")
+
+        choice = input("> ")
+
+        if choice == "1":
+            generate_dockerfile()
+        elif choice == "2":
+            start_container()
+        elif choice == "3":
+            stop_container()
+        elif choice == "4":
+            print("Thank you for using Dockerbot. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+
 def prompt_user():
     print("Welcome to Dockerbot! Let's create a Dockerfile.")
     language       = input("What programming language or framework do you want to use? (python, nodejs, java): ")
@@ -83,7 +108,11 @@ def close_app():
     print("Goodbye!")
     sys.exit()
 
-# Main program loop
+# Mainmenu program loo
+while True:
+    user_input = main_menu()
+
+# Dockerfile program loop
 while True:
     user_input = prompt_user()
     language, version, packageManager, os, dependencies, ports = user_input
@@ -94,5 +123,19 @@ while True:
     print(f"Your Dockerfile has been saved to {filename}.\n")
     response = input("Do you want to create another Dockerfile? (y/n): ")
     if response.lower() == "n":
-        close_app()
+        break
+
+# Docker-compose program loop
+
+while True:
+    user_input = prompt_user()
+    language, version, packageManager, os, dependencies, ports = user_input
+    dockerfile = generate_dockerfile(language, version, packageManager, os, dependencies, ports)
+    print(f"Here's your Dockerfile:\n{dockerfile}\n")
+    filename = input("Enter a filename to save the Dockerfile: ")
+    write_dockerfile(filename, dockerfile)
+    print(f"Your Dockerfile has been saved to {filename}.\n")
+    response = input("Do you want to create another Dockerfile? (y/n): ")
+    if response.lower() == "n":
+        break
 
