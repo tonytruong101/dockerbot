@@ -1,4 +1,4 @@
-knowledge_base{
+knowledge_base = {
     "alpine":                         ["FROM alpine:latest"],
     "alpine/git":                     ["FROM alpine/git:latest"],
     "amazon/dynamodb-local":          ["FROM amazon/dynamodb-local:latest"],
