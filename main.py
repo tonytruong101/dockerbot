@@ -47,6 +47,7 @@ def main_menu():
               print(f"\nYour Dockerfile has been saved to {filename}.\n")
               response = input("Do you want to create another Dockerfile? (y/n): ")
         elif choice == "2":
+            print(ascii_art)
             dockerfile_path = input("Enter the path to the Dockerfile: ")
             composefile = generate_docker_compose(dockerfile_path)
             print(f"Here's your docker-compose.yaml:\n{composefile}\n")

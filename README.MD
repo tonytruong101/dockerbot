@@ -24,7 +24,8 @@ Welcome to Dockerbot! A bot created in Python3 to help you automate some of thos
 
 Please select an option:
 1. Build Dockerfile
-2. Exit Dockerbot
+2. Generate Docker Compose
+3. Exit Dockerbot
 
 ```
 
@@ -103,5 +104,32 @@ EXPOSE 3000
 Enter a filename to save the Dockerfile: Dockerfile
 
 Your Dockerfile has been saved to Dockerfile.
+
+```
+
+## Generating docker-compose.yaml files based on Dockerfile
+
+```
+ ____   ___   ____ _  _______ ____  ____   ___ _____
+|  _ \ / _ \ / ___| |/ / ____|  _ \| __ ) / _ \_   _|
+| | | | | | | |   | ' /|  _| | |_) |  _ \| | | || |
+| |_| | |_| | |___| . \| |___|  _ <| |_) | |_| || |
+|____/ \___/ \____|_|\_\_____|_| \_\____/ \___/ |_|
+
+Enter the path to the Dockerfile: ./Dockerfile
+
+Here's your docker-compose.yaml:
+
+version: '3'
+
+services:
+  nodejs:
+    build:
+      context: .
+
+
+Enter a filename to save the docker-compose.yaml: docker-compose.yaml
+
+Your docker-compose.yaml has been saved to docker-compose.yaml.
 
 ```
