@@ -7,7 +7,7 @@ import pyfiglet
 import json
 import openai
 
-openai.api_key = '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'
+openai.api_key = ''
 
 # Set the text to be displayed
 text = "DOCKERBOT"
