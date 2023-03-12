@@ -41,7 +41,7 @@ knowledge_base = {
     "nginx":                          ["FROM nginx:latest", "COPY nginx.conf /etc/nginx/nginx.conf"],
     "nginx-flask":                    ["FROM nginx:latest", "RUN apt-get update && apt-get install -y python3-flask"],
     "nginx-php":                      ["FROM nginx:latest", "RUN apt-get update && apt-get install -y php-fpm"],
-    "nodejs":                         ["FROM node:latest", "RUN npm install"],
+    "nodejs":                         ["FROM node:latest"],
     "nodejs-express":                 ["FROM node:latest", "RUN npm install -g express"],
     "nvidia/cuda":                    ["FROM nvidia/cuda:latest"],
     "percona/percona-server-mongodb": ["FROM percona/percona-server-mongodb:latest"],

@@ -13,23 +13,30 @@ ascii_art = pyfiglet.figlet_format(text)
 
 def prompt_user():
     print(ascii_art)
-    language = input("What programming language or framework do you want to use? (python, nodejs, java): ")
+
+    knowledge_base_list = list(knowledge_base.keys())
+
+    language = ""    
+    while language not in knowledge_base:
+        language = input("What programming language or framework do you want to use? (python, nodejs, java): ")
+        if language not in knowledge_base:
+            print(f"Sorry, {language} is not supported. Please choose from:")
+            for lang in knowledge_base.keys():
+                print(lang)
     version = input("What version to do you want to pull from Dockerhub? (lts, or specific docker tag): ")
+
     packageManager = input("What package manager do you want to install application dependencies with? (npm, yarn, pip): ")
+
     os = input("What operating system do you want to base your image on? (alpine, ubuntu): ")
+
     dependencies_choice = input("Do you want to input dependencies manually or read from a file such as package.json? (m/f): ")
-    dependencies = []
+
+    dependencies = [] 
+
     if dependencies_choice.lower() == "m":
         dependencies = input("What packages or dependencies do you need? (comma-separated list): ")
     elif dependencies_choice.lower() == "f":
-        filename = input("Enter the name of the file containing dependencies (e.g. package.json): ")
-        with open(filename, "r") as f:
-            dependencies_data = json.load(f)
-        if "dependencies" in dependencies_data:
-            dependencies = ",".join(dependencies_data["dependencies"])
-        else:
-            print(f"No dependencies found for {language}. Please provide the dependencies manually.")
-            dependencies = input("What packages or dependencies do you need? (comma-separated list): ")
+        pass
 
     ports = input("What ports do you need exposed to run this application? (comma-separated list): ")
 
@@ -85,17 +92,24 @@ def generate_dockerfile(language, version, packageManager, os, dependencies, por
     base_commands[0] = f"## Creating Base Image\n{image_tag}\n"
 
     install_commands = []
-    if dependencies:
-        dependencies = dependencies.split(",")
+    if packageManager:
         if packageManager == "npm":
-            for dep in dependencies:
-                install_commands.append(f"RUN npm install {dep}")
+            install_commands.append("COPY package.json /app/package.json")
+            install_commands.append("RUN npm install")
+            install_commands.append("COPY . /app")
         elif packageManager == "yarn":
-            for dep in dependencies:
-                install_commands.append(f"RUN yarn add {dep}")
+            install_commands.append("COPY package.json /app/")
+            install_commands.append("RUN yarn install")
+            install_commands.append("COPY . /app")
+        elif packageManager == "pip":
+            install_commands.append("COPY requirements.txt /app/requirements.txt")
+            install_commands.append("RUN pip install -r requirements.txt")
+            install_commands.append("COPY . /app")
         elif packageManager == "bundler":
-            for dep in dependencies:
-                install_commands.append(f"RUN gem bundle add {dep}")
+            install_commands.append("COPY Gemfile /app/Gemfile")
+            install_commands.append("RUN gem bundlle install --path=vendor/bundle")
+            install_commands.append("COPY . /app")
+
         # Add other package manager options here...
     all_commands = base_commands + install_commands
 
