@@ -1,5 +1,16 @@
 import random
 import sys
+import pyfiglet
+
+
+#
+import pyfiglet
+
+# Set the text to be displayed
+text = "DOCKERBOT"
+
+# Use the Pyfiglet library to generate ASCII art
+ascii_art = pyfiglet.figlet_format(text)
 
 # Define a knowledge base of Dockerfile commands based on user inputs
 
@@ -43,6 +54,7 @@ def prompt_user():
 
 
 def main_menu():
+    print(ascii_art)
     print("Welcome to Dockerbot! A bot created in Python3 to help you automate some of those boring tasks")
     
     while True:
