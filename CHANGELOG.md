@@ -1,4 +1,6 @@
 ## 2023-03-12
+- f488239 add: feature to chat with dockerbot utilizing da-vinci-003 chatgpt prompt (tonytruong101)
+- 3d35da3 update readme and changelog (tonytruong101)
 - e9b9947 fixed port function, add new feature Dockerfile Analysis (tonytruong101)
 - f063626 updated changelog.sh to overwrite file instead of appending and updated CHANGELOG.MD (tonytruong101)
 - 683cf8b fixed generate_dockerfile function (tonytruong101)
