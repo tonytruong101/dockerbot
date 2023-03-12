@@ -120,26 +120,26 @@ def main_menu():
 
 def generate_dockerfile(language, version, packageManager, os, dependencies, ports):
     base_commands = {
-        "alpine": ["FROM", "{}:{}".format(language, version)],
-        "ubuntu": ["FROM", "{}:{}".format(language, version)]
+        "alpine": ["FROM {}:{}-{}".format(language, version, os)],
+        "ubuntu": ["FROM {}:{}".format(language, version)]
     }
 
     if packageManager == "npm":
         install_commands = [
             "RUN npm install -g npm",
-            "COPY package*.json ./",
+            "COPY package*.json ./app/",
             "RUN npm install",
         ]
     elif packageManager == "yarn":
         install_commands = [
             "RUN npm install -g yarn",
-            "COPY package*.json ./",
+            "COPY package*.json ./app/",
             "RUN yarn install",
         ]
     elif packageManager == "pip":
         install_commands = [
-            "COPY requirements.txt /",
-            "RUN pip install -r /requirements.txt",
+            "COPY requirements.txt /app",
+            "RUN pip install -r /app/requirements.txt",
         ]
     else:
         install_commands = []
