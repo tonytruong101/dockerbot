@@ -141,7 +141,7 @@ def main_menu():
 
         choice = input("> ")
 
-        if choice == "1":
+        if choice in ["1", "build", "Build", "build dockerfile", "Build Dockerfile"]:
             response = "y"
             while response.lower() =="y":
               user_input = prompt_user()
@@ -178,7 +178,7 @@ def main_menu():
             write_dockerfile(filename, dockerfile)
             print(f"\nYour Dockerfile has been saved to {filename}.\n")
 
-        elif choice == "5":
+        elif choice in ["5", "Exit", "exit", "Quit", "quit"]:
             print(ascii_art)
             print("Thank you for using Dockerbot. Goodbye!")
             sys.exit()  # Exit the entire program
