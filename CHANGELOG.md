@@ -1,4 +1,12 @@
+## 2023-03-13
+- f5d5699 add: feature to scan the same Dockerfile directory to generate description of app dependencies (tonytruong101)
 ## 2023-03-12
+- 59d8039 add: logic to allow user to quit the app at any part of the guided dockerfile build (tonytruong101)
+- 9c0cbe5 add: more methods to quit application instead of only the 5 prompt, user can prompt it exit or quit (tonytruong101)
+- c8b8d5d add user input validations for guided prompt walkthrough (tonytruong101)
+- 3423311 add background animation for chatbot (tonytruong101)
+- 820ae07 add: experimental feature - integrated davinci with flask bot app (tonytruong101)
+- f0cceb4 updated CHANGELOG.MD (tonytruong101)
 - 5bdd828 Update changelog.sh (tonytruong101)
 - 4be2d22 experimenting with flask, add basic chat window for bot (tonytruong101)
 - cddc726 update changelog (tonytruong101)
@@ -23,6 +31,7 @@
 - fe331d6 update changelog (tonytruong101)
 - d18cc8f add: feature to add new docker images to the knowledge (tonytruong101)
 - 873f29c reworked dependencies logic to run COPY commands add basic error validation for user inputs (tonytruong101)
+
 ## 2023-03-11
 - f0fc451 update readme (tonytruong101)
 - bd84eb3 add: feature to parse application package files instead of manaully adding them (tonytruong101)

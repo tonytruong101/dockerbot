@@ -7,8 +7,9 @@ Bootstrapping my Python programming learning with creating a functional bot that
 
 ## Quick-Start
 
+
 ```
-python main.py
+python3 main.py
 ```
 
 ## Main Menu
@@ -236,7 +237,7 @@ Your docker-compose.yaml has been saved to docker-compose.yaml.
 
 ```
 
-## Inspecting A Dockerfile
+## Inspecting A Dockerfile and its directory contents
 
 ```
  ____   ___   ____ _  _______ ____  ____   ___ _____ 
@@ -254,11 +255,16 @@ Please select an option:
 3. Inspect Dockerfile
 4. Exit Dockerbot
 > 3
+
 Enter the path to the Dockerfile: Dockerfile
 
 Here's the description of your Dockerfile:
-This Dockerfile uses nodejs:lts-alpine as the base image and installs the following packages: . It also exposes the following ports: 8080, 5000.
 
+This Dockerfile uses python:3.9-slim-buster as the base image 
+
+Installs the following packages: pyfiglet, openai, flask. 
+
+It also exposes the following ports: 80, 6001, 5000.
 
 Please select an option:
 1. Build Dockerfile
