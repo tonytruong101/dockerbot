@@ -1,4 +1,7 @@
 ## 2023-03-12
+- 5bdd828 Update changelog.sh (tonytruong101)
+- 4be2d22 experimenting with flask, add basic chat window for bot (tonytruong101)
+- cddc726 update changelog (tonytruong101)
 - 12c5785 updated readme (tonytruong101)
 - ee49ddd Merge branch 'main' of github.com:tonytruong101/dockerbot (tonytruong101)
 - 83814ae add: logic to ask for user input for a new prompt (tonytruong101)
@@ -20,7 +23,6 @@
 - fe331d6 update changelog (tonytruong101)
 - d18cc8f add: feature to add new docker images to the knowledge (tonytruong101)
 - 873f29c reworked dependencies logic to run COPY commands add basic error validation for user inputs (tonytruong101)
-
 ## 2023-03-11
 - f0fc451 update readme (tonytruong101)
 - bd84eb3 add: feature to parse application package files instead of manaully adding them (tonytruong101)
