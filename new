@@ -1,0 +1,5 @@
+FROM nodejs:lts-alpine
+RUN npm install -g npm
+COPY package*.json ./app/
+RUN npm install
+EXPOSE 5000

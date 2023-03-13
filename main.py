@@ -9,6 +9,8 @@ import sys
 import pyfiglet
 import json
 import openai
+import re
+import uuid
 
 openai.api_key = ''
 
@@ -232,6 +234,13 @@ def generate_dockerfile(language, version, packageManager, os, dependencies, por
             "COPY requirements.txt /app",
             "RUN pip install -r /app/requirements.txt",
         ]
+    elif packageManager == "bundler":
+        install_commands = [
+            "COPY Gemfile /app/Gemfile",
+            "RUN gem install bundler",
+	    "RUN bundle install",
+        ]
+
     else:
         install_commands = []
 
@@ -254,6 +263,20 @@ def generate_dockerfile(language, version, packageManager, os, dependencies, por
             all_commands.append("EXPOSE {}".format(port))
 
     dockerfile = "\n".join(all_commands)
+
+    print("Generated Dockerfile:\n")
+    print(dockerfile)
+
+    while True:
+        user_input = input("Are you satisfied with the generated Dockerfile? (y/n): ")
+        if user_input.lower() == "y":
+            break
+        elif user_input.lower() == "n":
+            print("Restarting...")
+            return main_menu()
+
+        else:
+            print("Invalid input. Please enter 'y' or 'n'.")
     return dockerfile
 
 # Write the Dockerfile to a file
