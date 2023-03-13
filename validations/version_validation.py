@@ -1,0 +1,60 @@
+import fnmatch
+def validate_version(version):
+
+    valid_versions = [
+	"lts",
+        "ubuntu",
+        "latest",
+        "stable", 
+        "alpha", 
+        "beta", 
+        "jessie*", 
+        "stretch*", 
+        "buster*", 
+        "xenial*", 
+        "bionic*", 
+        "focal*", 
+        "hirsute*", 
+        "armv7*", 
+        "armv8*", 
+        "ppc64le*", 
+        "s390x*", 
+        "win-*", 
+        "macos-*", 
+        "centos*", 
+        "redhat*", 
+        "fedora*", 
+        "amazonlinux*", 
+        "opensuse*", 
+        "archlinux*", 
+        "gentoo*", 
+        "voidlinux*",    
+        "1.*.*",
+        "2.*.*",
+        "3.*.*",
+        "4.*.*",
+        "5.*.*",
+        "6.*.*",
+        "7.*.*",
+        "8.*.*",
+        "9.*.*",
+        "10.*.*",
+        "11.*.*",
+        "12.*.*",
+        "13.*.*",
+        "14.*.*",
+        "15.*.*",
+        "16.*.*",
+        "17.*.*",
+        "18.*.*",
+        "19.*.*",
+        "20.*.*",
+        "21.*.*",
+        "2*.*.*",
+        "3*.*.*"
+	]
+
+    while version not in valid_versions:
+        version = input("Invalid input. Please enter a valid option from the list (lts, latest, 3.8, 3.9, 3.10): ")
+    return version
+

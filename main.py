@@ -1,6 +1,9 @@
 from docker_images import knowledge_base
 from generate_docker_compose import generate_docker_compose
 from dockerfile_analysis import analyze_dockerfile
+from validations.version_validation import validate_version
+from validations.package_manager_validation import validate_package_manager
+
 import random
 import sys
 import pyfiglet
@@ -82,6 +85,7 @@ def prompt_user():
     knowledge_base_list = list(knowledge_base.keys())
 
     language = ""    
+
     while True:
         language = input("What programming language or framework do you want to use? (python, nodejs, java): ")
         if language not in knowledge_base:
@@ -99,12 +103,17 @@ def prompt_user():
             break
 
     version = input("What version to do you want to pull from Dockerhub? (lts, or specific docker tag): ")
+    version = validate_version(version)
 
     packageManager = input("What package manager do you want to install application dependencies with? (npm, yarn, pip): ")
+    packageManager = validate_package_manager(packageManager)
 
     os = input("What operating system do you want to base your image on? (alpine, ubuntu): ")
 
     dependencies_choice = input("Do you want to input dependencies manually or read from a file such as package.json? (m/f): ")
+
+    while dependencies_choice not in ["m", "f"]: # Add valid options for dependencies choice
+         dependencies_choice = input("Invalid input. Please enter a valid option from the list (m/f): ")
 
     dependencies = [] 
 
