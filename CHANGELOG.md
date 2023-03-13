@@ -1,4 +1,13 @@
 ## 2023-03-12
+- 12c5785 updated readme (tonytruong101)
+- ee49ddd Merge branch 'main' of github.com:tonytruong101/dockerbot (tonytruong101)
+- 83814ae add: logic to ask for user input for a new prompt (tonytruong101)
+- 6bdb237 add: logic to ask for user input for a new prompt (tonytruong101)
+- 522e8ee Merge branch 'main' of github.com:tonytruong101/dockerbot (tonytruong101)
+- a6f1519 api key file encrypted (tonytruong101)
+- f4cc6ad api key file encrypted (tonytruong101)
+- 1fbc879 removed api key (tonytruong101)
+- bf2c663 update changelog (tonytruong101)
 - 0db7883 fixed option 3, adding regenerate prompt responses from davinci (tonytruong101)
 - ad92e32 update changelog (tonytruong101)
 - f488239 add: feature to chat with dockerbot utilizing da-vinci-003 chatgpt prompt (tonytruong101)
@@ -11,6 +20,7 @@
 - fe331d6 update changelog (tonytruong101)
 - d18cc8f add: feature to add new docker images to the knowledge (tonytruong101)
 - 873f29c reworked dependencies logic to run COPY commands add basic error validation for user inputs (tonytruong101)
+
 ## 2023-03-11
 - f0fc451 update readme (tonytruong101)
 - bd84eb3 add: feature to parse application package files instead of manaully adding them (tonytruong101)
