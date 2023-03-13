@@ -57,16 +57,16 @@
 	</style>
 </head>
 <body>
-	<div class="chat-container">
-	{% for message in messages %}
-		<div class="message {{ message.position }}">
-			<p>{{ message.content }}</p>
-		</div>
-	{% endfor %}
-	<form method="POST" action="/result" class="message right">
-		<input type="text" name="user_input" id="user_input">
-		<input type="submit" value="Send">
-	</form>
+        <div class="chat-container">
+        {% for message in messages %}
+                <div class="message {{ message.position }}">
+                        <p>{{ message.content }}</p>
+                </div>
+        {% endfor %}
+        <form method="POST" action="/result" class="message right">
+                <input type="text" name="user_input" id="user_input">
+                <input type="submit" value="Send">
+        </form>
 </div>
 </body>
 </html>
