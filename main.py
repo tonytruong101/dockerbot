@@ -7,7 +7,7 @@ import pyfiglet
 import json
 import openai
 
-openai.api_key = ''
+openai.api_key = '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'
 
 # Set the text to be displayed
 text = "DOCKERBOT"
@@ -33,6 +33,13 @@ def write_to_file(knowledge_base):
 
 def generate_dockerfile_from_prompt(prompt):
     while True:
+        # Check if the user prompt contains the word "Docker" or "docker"
+        if not any(word in prompt.lower() for word in ["docker", "Docker"]):
+            print("Invalid prompt. Please enter a Docker related prompt.")
+            prompt = input("Enter a Docker related prompt: ")
+            continue
+
+
         model_engine = "text-davinci-002"
         completions = openai.Completion.create(
             engine=model_engine,
@@ -44,15 +51,21 @@ def generate_dockerfile_from_prompt(prompt):
         )
 
         message = completions.choices[0].text
-        print(f"Here's your file:\n{message}\n")
-        response = input("Do you accept this response? (y/n): ")
-        if response.lower() == "y":
-            return message
-        elif response.lower() != "n":
-            print("Invalid input. Please enter 'y' to accept or 'n' to regenerate.")
-        else:
-            print("Generating a new file...")
 
+
+        # Filter out prompts that do not contain the word "Docker" or "docker"
+
+        print(f"Here's your file:\n{message}\n")
+
+        while True:
+            response = input("Do you accept this response? (y/n): ")
+            if response.lower() == "y":
+                return message
+            elif response.lower() == "n":
+                prompt = input("Enter a Docker related prompt: ")
+                break
+            else:
+                print("Invalid input. Please enter 'y' to accept or 'n' to regenerate.")
 
 def prompt_user():
     print(ascii_art)
