@@ -1,73 +1,111 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>My Python Program Chat Window</title>
-	<style>
-		.container {
-			display: flex;
-			flex-direction: column;
-			height: 100vh;
-			justify-content: flex-end;
-			align-items: stretch;
-			background-color: #f0f0f0;
-			font-family: sans-serif;
-			font-size: 16px;
-			padding: 10px;
-		}
+	
+    <title>Flask dockerbot</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.4.1/dist/css/bootstrap.min.css">
 
-		.message {
-			background-color: #fff;
-			border-radius: 5px;
-			box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-			margin-bottom: 10px;
-			padding: 10px;
-			max-width: 60%;
-			align-self: flex-end;
-		}
+<style>
 
-		.message.left {
-			align-self: flex-start;
-		}
+   body {
+        background-color: #222;
+        height: 100%;
+    }
 
-		.message input[type="text"] {
-			border: none;
-			border-bottom: 1px solid #333;
-			font-family: inherit;
-			font-size: inherit;
-			padding: 5px;
-			width: 100%;
-		}
+    #particles-js {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
 
-		.message input[type="submit"] {
-			background-color: #4CAF50;
-			border: none;
-			color: #fff;
-			cursor: pointer;
-			font-size: inherit;
-			padding: 5px 10px;
-			margin-left: 10px;
+	.container {
+		display: flex;
+		flex-direction: column;
+		height: 100vh;
+		justify-content: center;
+		align-items: right;
+		background: linear-gradient(-45deg, #AA77FF, #C9EEFF, #97DEFF, #62CDFF );
+        	background-size: 400% 400%;
+         	animation: gradient 15s ease infinite;
+		font-family: sans-serif;
+		font-size: 16px;
+		padding: 10px;
+	}
+
+	@keyframes gradient {
+		0% {
+			background-position: 0% 50%;
 		}
-		.chat-container {
-  			border: 1px solid #ccc;
-  			border-radius: 5px;
-  			padding: 10px;
-  			height: 400px;
-  			overflow-y: scroll;
+		50% {
+			background-position: 100% 50%;
 		}
-	</style>
+		100% {
+			background-position: 0% 50%;
+		}
+	}
+
+	.message {
+		background-color: #fff;
+		border-radius: 5px;
+		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+		margin-bottom: 10px;
+		padding: 10px;
+		max-width: 60%;
+		align-self: center;
+	}
+
+        .message.right {
+                align-self: flex-start;
+        }
+
+	.message input[type="text"] {
+		border: none;
+		border-bottom: 1px solid #333;
+		font-family: inherit;
+		font-size: inherit;
+		padding: 5px;
+		width: 100%;
+	}
+
+	.message input[type="submit"] {
+		background-color: #4CAF50;
+		border: none;
+		color: #fff;
+		cursor: pointer;
+		font-size: inherit;
+		padding: 5px 10px;
+		margin-left: 10px;
+	}
+	.chat-container {
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		padding: 10px;
+		height: 400px;
+		overflow-y: scroll;
+	}
+</style>
+
+ 
 </head>
 <body>
+    <div class="container">
         <div class="chat-container">
-        {% for message in messages %}
+            {% for message in messages %}
                 <div class="message {{ message.position }}">
-                        <p>{{ message.content }}</p>
+                    <p>{{ message.content }}</p>
                 </div>
-        {% endfor %}
-        <form method="POST" action="/result" class="message right">
-                <input type="text" name="user_input" id="user_input">
-                <input type="submit" value="Send">
-        </form>
-</div>
+            {% endfor %}
+            <form method="POST" action="/result" class="message right">
+                <div class="input-group">
+                    <input type="text" name="user_input" id="user_input" class="form-control" placeholder="Type your message here...">
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.1/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
 
