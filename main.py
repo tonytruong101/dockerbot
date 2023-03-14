@@ -89,7 +89,7 @@ def prompt_user():
     language = ""    
 
     while True:
-        language = input("What programming language or framework do you want to use? (python, nodejs, java): ")
+        language = input("What programming language, framework or distrobution do you want to use? (python, nodejs, ubuntu): ")
 
         if language.lower() == 'exit' or language.lower() == 'quit':
             main_menu() 
