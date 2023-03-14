@@ -141,11 +141,15 @@ def prompt_user():
         dependencies = input("What packages or dependencies do you need? (comma-separated list): ")
     elif dependencies_choice.lower() == "f":
         pass
-
+     
     ports = input("What ports do you need exposed to run this application? (comma-separated list): ")
 
-    if ports.lower() == 'exit' or ports.lower() == 'quit':
-        main_menu()
+    while not all(port.strip().isdigit() for port in ports.split(',')):
+        ports = input("What ports do you need exposed to run this application? (comma-separated list): ")
+        print("Error: Port numbers must be numeric only.")
+
+        if ports.lower() == 'exit' or ports.lower() == 'quit':
+            main_menu()
 
     return language, version, packageManager, os, dependencies, ports
 

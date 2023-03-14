@@ -1,60 +1,16 @@
 import fnmatch
-def validate_version(version):
 
-    valid_versions = [
-	"lts",
-        "ubuntu",
-        "latest",
-        "stable", 
-        "alpha", 
-        "beta", 
-        "jessie*", 
-        "stretch*", 
-        "buster*", 
-        "xenial*", 
-        "bionic*", 
-        "focal*", 
-        "hirsute*", 
-        "armv7*", 
-        "armv8*", 
-        "ppc64le*", 
-        "s390x*", 
-        "win-*", 
-        "macos-*", 
-        "centos*", 
-        "redhat*", 
-        "fedora*", 
-        "amazonlinux*", 
-        "opensuse*", 
-        "archlinux*", 
-        "gentoo*", 
-        "voidlinux*",    
-        "1.*.*",
-        "2.*.*",
-        "3.*.*",
-        "4.*.*",
-        "5.*.*",
-        "6.*.*",
-        "7.*.*",
-        "8.*.*",
-        "9.*.*",
-        "10.*.*",
-        "11.*.*",
-        "12.*.*",
-        "13.*.*",
-        "14.*.*",
-        "15.*.*",
-        "16.*.*",
-        "17.*.*",
-        "18.*.*",
-        "19.*.*",
-        "20.*.*",
-        "21.*.*",
-        "2*.*.*",
-        "3*.*.*"
-	]
+def validate_version(version, exact_match=False):
+    if exact_match:
+        valid_versions = [f"{i}.*.*" for i in range(1, 100)]
+        valid_versions += [f"{i}.{j}.*" for i in range(1, 100) for j in range(1, 100)]
+        valid_versions += [f"{i}.{j}.{k}" for i in range(1, 100) for j in range(1, 100) for k in range(1, 100)]
+    else:
+        valid_versions = [f"{i}" for i in range(1, 100)]
+        valid_versions += [f"{i}.{j}" for i in range(1, 100) for j in range(1, 100)]
+        valid_versions += [f"{i}.{j}.*" for i in range(1, 100) for j in range(1, 100)]
 
-    while version not in valid_versions:
-        version = input("Invalid input. Please enter a valid option from the list (lts, latest, 3.8, 3.9, 3.10): ")
+    while not any(fnmatch.fnmatch(version, v) for v in valid_versions):
+        version = input(f"Invalid input. Please enter a valid option from the list ({', '.join(valid_versions)}): ")
     return version
 
